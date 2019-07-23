@@ -27,9 +27,13 @@ namespace InputValidatorMain
             {
                 MessageBox.Show("The name is invalid (only alphabetical characters are allowed)");
             }
-            if (!iv.ValidatePhone(phoneTextBox.Text))
+            try
             {
-                MessageBox.Show("The phone number is not a valid US phone number.");
+                phoneTextBox.Text = iv.ReformatPhone(phoneTextBox.Text);
+            }
+            catch (ArgumentException)
+            {
+                MessageBox.Show("The phone number is not valid.");
             }
             if (!iv.ValidateEmail(emailTextBox.Text))
             {

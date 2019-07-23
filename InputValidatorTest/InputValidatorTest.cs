@@ -53,17 +53,28 @@ namespace InputValidatorTest
             phone = "362-185-2394";
             Assert.IsTrue(iv.ValidatePhone(phone));
 
+            phone = "3621852394";
+            Assert.IsTrue(iv.ValidatePhone(phone));
+
+            phone = "(362) 185-2394";
+            Assert.IsTrue(iv.ValidatePhone(phone));
+
+            phone = "(362)185-2394";
+            Assert.IsTrue(iv.ValidatePhone(phone));
+
+            phone = "(362)-185-2394";
+            Assert.IsTrue(iv.ValidatePhone(phone));
+
             phone = "h362-1865-2394";
             Assert.IsFalse(iv.ValidatePhone(phone));
 
             phone = "h362-1865-2394h";
             Assert.IsFalse(iv.ValidatePhone(phone));
 
-            phone = "abc-def-ghij";
-            Assert.IsFalse(iv.ValidatePhone(phone));
-
             phone = "362_1865_2394";
             Assert.IsFalse(iv.ValidatePhone(phone));
+            /*
+            */
         }
 
         [TestMethod]
