@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using System.Text.RegularExpressions;
 
 
-namespace InputValidator
+namespace InputValidatorMain
 {
     public partial class InputValidatorForm : Form
     {
@@ -21,29 +21,17 @@ namespace InputValidator
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            string nameRegex = @"^[a-zA-Z]*$";
+            InputValidator iv = new InputValidator();
 
-            string phoneNumSequence1 = @"(\d{3})";
-            string phoneNumSequence2 = @"(\d{4})";
-            string phoneNumSep = @"\-";
-            string phoneRegex = String.Format("^{1}{0}{1}{0}{2}$",
-                phoneNumSep, phoneNumSequence1, phoneNumSequence2);
-
-            
-
-            string emailPart = @"\w+";
-            string emailTopLevelDomain = "[a-z]{2,3}";
-            string emailRegex = String.Format(@"^{0}@{0}\.{1}$", emailPart, emailTopLevelDomain);
-
-            if (!Regex.IsMatch(nameTextBox.Text, nameRegex))
+            if (!iv.ValidateName(nameTextBox.Text))
             {
                 MessageBox.Show("The name is invalid (only alphabetical characters are allowed)");
             }
-            if (!Regex.IsMatch(phoneTextBox.Text, phoneRegex))
+            if (!iv.ValidatePhone(phoneTextBox.Text))
             {
                 MessageBox.Show("The phone number is not a valid US phone number.");
             }
-            if (!Regex.IsMatch(emailTextBox.Text, emailRegex))
+            if (!iv.ValidateEmail(emailTextBox.Text))
             {
                 MessageBox.Show("The e-mail address is not valid.");
             }
