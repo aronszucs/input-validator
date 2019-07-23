@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 
+
 namespace InputValidator
 {
     public partial class InputValidatorForm : Form
@@ -21,8 +22,19 @@ namespace InputValidator
         private void SaveButton_Click(object sender, EventArgs e)
         {
             string nameRegex = @"^[a-zA-Z]*$";
-            string phoneRegex = @"^(\d{3})\-(\d{3})\-(\d{4})$";
-            string emailRegex = @"^\w+@\w+\.[a-z]{2,3}$";
+
+            string phoneNumSequence1 = @"(\d{3})";
+            string phoneNumSequence2 = @"(\d{4})";
+            string phoneNumSep = @"\-";
+            string phoneRegex = String.Format("^{1}{0}{1}{0}{2}$",
+                phoneNumSep, phoneNumSequence1, phoneNumSequence2);
+
+            
+
+            string emailPart = @"\w+";
+            string emailTopLevelDomain = "[a-z]{2,3}";
+            string emailRegex = String.Format(@"^{0}@{0}\.{1}$", emailPart, emailTopLevelDomain);
+
             if (!Regex.IsMatch(nameTextBox.Text, nameRegex))
             {
                 MessageBox.Show("The name is invalid (only alphabetical characters are allowed)");
